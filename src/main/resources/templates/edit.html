@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title}"/>
+</head>
+<body>
+<h1 th:if="${task}==null" th:text="#{taskNotFound}"/>
+<div th:if="${task !=null}">
+<h2 th:text="#{taskEdit}"/>
+
+
+<form th:object="${task}" th:method="post">
+    <div>
+        <label for="title" th:text="#{taskTitle}"/>
+        <input type="text" name="title" id="title" th:value="*{title}">
+    </div>
+    <div>
+        <label for="description" th:text="#{taskDescription}"/>
+        <input type="text" name="description" id="description"th:value="*{description}">
+    </div>
+    <div>
+        <label for="time" th:text="#{taskTime}"/>
+        <input type="datetime-local" name="time" id="time" th:value="*{time}">
+    </div>
+
+
+    <button type="submit" th:text="#{editTask}"/>
+</form>
+
+</div>
+
+
+
+<a th:href="@{/tasks}" ><button th:text="#{BackToOverview }"/></a>
+<div th:replace="footer"></div>
+
+
+</body>
+</html>

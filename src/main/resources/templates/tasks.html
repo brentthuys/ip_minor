@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title}"/>
+
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+</head>
+<body>
+<h2 th:text="#{taskOverview}"/>
+<table>
+    <div th:unless=" ${#lists.isEmpty(tasks)}">
+
+        <thead>
+        <tr>
+            <th th:text="#{taskTitle}"></th>
+            <th th:text="#{taskTime}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.title}+': '"></td>
+            <td th:text="#{due}+' '+${task.time.month} +' '+ ${task.time.dayOfMonth}+' '+ ${task.time.year}+ ' '+ #{at} + ' '+${task.time.hour}+':'+ ${task.time.minute}"></td>
+            <div><td><a th:href="@{/tasks/{id} (id=${task.id})}" th:text="#{description}"/>
+                <a th:href="@{'/tasks/edit/' + ${task.id}}" th:text="#{edit}" /></td></div>
+        </tbody>
+    </div>
+    <div th:if="${#lists.isEmpty(tasks)}">
+        <p th:text="#{noTaskLeft}"/>
+
+    </div>
+</table>
+
+<form method="post" action="/tasks/new" th:object="${taskDTO}">
+    <h4 th:text="#{addTask}"/>
+    <div>
+        <label for="title" th:text="#{taskTitle}"/>
+        <input type="text" name="title" id="title" th:field="*{title}">
+    </div>
+    <div>
+        <label for="description" th:text="#{taskDescription}"></label>
+        <input type="text" name="description" id="description" th:field="*{description}">
+    </div>
+
+
+    <div id="datetimepicker" class="input-append date" >
+        <label for="time" th:text="#{taskTime}"/>
+        <input type="datetime-local" name="time" id="time" th:field="*{time}">
+        <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+    </div>
+
+
+
+
+    <div hidden>
+        <input type="id" name="id" id="id" value="0" >
+    </div>
+
+    <button type="submit" th:text="#{addTask}"/>
+</form>
+
+
+</body>
+
+
+<div th:replace="footer"></div>
+
+</html>
+
+<script type="text/javascript"
+        src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+</script>
+<script type="text/javascript"
+        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+</script>
+
+
+<script>
+    $(function () {
+        $('#datetimePicker').datetimepicker({
+            format:'yyyy-MM-dd hh:mm',
+            minDate: new Date(),
+            language: 'EN'
+        });
+    });
+</script>
