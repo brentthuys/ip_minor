@@ -19,16 +19,16 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank(message = "title cant be empty")
+    @NotBlank(message = "{titleNotBlank}")
     private String title;
 
-    @NotBlank(message = "descrption cant be empty")
+    @NotBlank(message = "{desriptionNotBlank")
     private String description;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<SubTask> subtasks;
 
-    @NotNull
+    @NotNull (message ="timeNotBlank" )
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime time;
 

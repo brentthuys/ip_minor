@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title}"/>
+
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+</head>
+<body>
+<h2 th:text="#{taskOverview}"/>
+
+<form method="post" action="/tasks/new" th:object="${taskDTO}">
+    <h4 th:text="#{addTask}"/>
+    <div>
+        <label for="title" th:text="#{taskTitle}"/>
+        <input type="text" name="title" id="title" th:field="*{title}">
+        <p th:errors="*{title}"></p>
+
+    </div>
+    <div>
+        <label for="description" th:text="#{taskDescription}"></label>
+        <input type="text" name="description" id="description" th:field="*{description}">
+        <p th:errors="*{description}"></p>
+
+    </div>
+
+
+    <div id="datetimepicker" class="input-append date" >
+        <label for="time" th:text="#{taskTime}"/>
+        <input type="datetime-local" name="time" id="time" th:field="*{time}">
+        <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+        <p th:errors="*{time}"></p>
+
+    </div>
+
+
+
+
+    <div hidden>
+        <input type="id" name="id" id="id" value="0" >
+    </div>
+
+
+    <button type="submit" th:text="#{addTask}"/>
+</form>
+
+<a th:href="@{/tasks}" ><button th:text="#{BackToOverview }"/></a>
+
+</body>
+
+
+<div th:replace="footer"></div>
+
+</html>
+
+<script type="text/javascript"
+        src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+</script>
+<script type="text/javascript"
+        src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+</script>
+
+
+<script>
+    $(function () {
+        $('#datetimePicker').datetimepicker({
+            format:'yyyy-MM-dd hh:mm',
+            minDate: new Date(),
+            language: 'EN'
+        });
+    });
+</script>

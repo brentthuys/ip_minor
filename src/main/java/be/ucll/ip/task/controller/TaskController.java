@@ -23,10 +23,7 @@ public class TaskController {
 
     @GetMapping
     public String getTasks(Model model) {
-        System.out.println(taskService.getTasks().size());
         model.addAttribute("tasks", taskService.getTasks());
-        model.addAttribute("taskDTO",new Task());
-
         return "tasks";
     }
 
@@ -43,32 +40,58 @@ public class TaskController {
         model.addAttribute("subtasks", null);
         return "task";
     }
+    @GetMapping("/new")
+    public String addTaskPage(Model model) {
+        model.addAttribute("taskDTO",new Task());
+        return "addTask";
+    }
+
 
     @PostMapping("/new")
     public String addTask(@ModelAttribute @Valid TaskDTO task,BindingResult bindingresult, Model model){
 
 
         if(bindingresult.hasErrors()){
-            return "redirect:/tasks/";
+            return "addTask";
         }
-        System.out.println(task.getTime());
-        System.out.println(task.getTitle());
+
 
         taskService.addTask(task);
 
         return "redirect:/tasks";
     }
 
-    @PostMapping("{id}/sub/create")
-    public String addSubTask(@ModelAttribute @Valid SubTaskDTO subtaskDTO,BindingResult bindingresult,@PathVariable Integer id){
+    @PostMapping("/{id}/sub/createsubtask")
+    public String addSubTask(@ModelAttribute @Valid SubTaskDTO subtaskDTO,BindingResult bindingresult,@PathVariable Integer id, Model model){
+
+        if(id==null){
+            return this.getTasks(model);
+        }
+
 
         if(bindingresult.hasErrors()){
-            return "redirect:/tasks/"+id;
+            return "redirect:/tasks/"+id+"/sub/create";
         }
     taskService.addSubtask(id, subtaskDTO);
        return "redirect:/tasks/" + id;
     }
-    @GetMapping("/edit/{id}")
+
+
+
+    @GetMapping("/{id}/sub/create")
+    public String addSubTaskPage(Model model, @PathVariable Integer id) {
+
+        if(taskService.getTask(id)==null){
+            return this.getTasks(model);
+        }
+        TaskDTO task = taskService.getTask(id);
+        model.addAttribute("task", task);
+
+        return "addSubTask";
+    }
+
+
+ @GetMapping("/edit/{id}")
     public String editTaskPage(Model model, @PathVariable Integer id) {
         model.addAttribute("task",taskService.getTask(id));
         return "edit";

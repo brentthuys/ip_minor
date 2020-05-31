@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title}"/>
+</head>
+<body>
+
+
+    <form method="post" th:action="@{/tasks/{id}/sub/createsubtask (id=${task.id})}">
+        <h2 th:text="#{addSubtask}"/>
+        <div>
+            <label for="title" th:text="#{taskTitle}"/>
+            <input type="text" name="title" id="title">
+        </div>
+        <div>
+            <label for="description" th:text="#{taskDescription}"/>
+            <input type="text" name="description" id="description">
+        </div>
+
+        <input type="hidden" name="mainTaskId" th:value="${task.getId()}"/>
+
+
+        <input type="submit" th:value="#{addSubtask}"/>
+    </form>
+
+
+</div>
+
+<h1 th:if="${task}==null" th:text="#{taskNotFound}"/>
+
+<a th:href="@{/tasks}" ><button th:text="#{BackToOverview }"/></a>
+
+
+
+</body>
+
+<div th:replace="footer"></div>
+
+
+</html>
