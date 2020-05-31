@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <title th:text="#{title}"/>
 </head>
+<nav >
+
+    <ul >
+        <li >
+            <a href="/" th:text="#{home}"><span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a href="/tasks/new" th:text="#{newTask}"></a>
+        </li>
+    </ul>
+
+</nav>
 <body>
+
 <h1 th:if="${task}==null" th:text="#{taskNotFound}"/>
 <div th:if="${task !=null}">
 <h2 th:text="#{taskEdit}"/>
@@ -13,15 +26,21 @@
 <form th:object="${task}" th:method="post">
     <div>
         <label for="title" th:text="#{taskTitle}"/>
-        <input type="text" name="title" id="title" th:value="*{title}">
+        <input type="text" name="title" id="title" th:field="*{title}">
+        <p th:errors="*{title}"></p>
+
     </div>
     <div>
         <label for="description" th:text="#{taskDescription}"/>
-        <input type="text" name="description" id="description"th:value="*{description}">
+        <input type="text" name="description" id="description"th:field="*{description}">
+        <p th:errors="*{description}"></p>
+
     </div>
     <div>
         <label for="time" th:text="#{taskTime}"/>
-        <input type="datetime-local" name="time" id="time" th:value="*{time}">
+        <input type="datetime-local" name="time" id="time" th:field="*{time}">
+        <p th:errors="*{time}"></p>
+
     </div>
 
 

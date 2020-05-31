@@ -70,7 +70,8 @@ public class TaskController {
 
 
         if(bindingresult.hasErrors()){
-            return "redirect:/tasks/"+id+"/sub/create";
+            model.addAttribute("task", taskService.getTask(id));
+            return "addSubTask";
         }
     taskService.addSubtask(id, subtaskDTO);
        return "redirect:/tasks/" + id;
@@ -86,6 +87,7 @@ public class TaskController {
         }
         TaskDTO task = taskService.getTask(id);
         model.addAttribute("task", task);
+        model.addAttribute("subtaskDTO",new SubTaskDTO());
 
         return "addSubTask";
     }

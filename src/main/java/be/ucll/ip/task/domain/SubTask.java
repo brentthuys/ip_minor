@@ -16,9 +16,9 @@ public class SubTask {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int subtaskId;
 
-    @NotBlank
+    @NotBlank (message = "{titleNotBlank}")
     private String title;
-    @NotBlank
+    @NotBlank (message = "descriptionNotBlank")
     private String description;
 
 

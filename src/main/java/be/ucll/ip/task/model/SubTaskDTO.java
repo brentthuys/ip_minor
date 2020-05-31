@@ -10,9 +10,10 @@ public class SubTaskDTO {
 
     private int subtaskId;
 
-    @NotBlank
+
+    @NotBlank (message = "{titleNotBlank}")
     private String title;
-    @NotBlank
+    @NotBlank (message = "{descriptionNotBlank}")
     private String description;
 
 

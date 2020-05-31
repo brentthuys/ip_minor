@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title th:text="#{title}"/>
 </head>
+<nav >
+
+    <ul >
+        <li >
+            <a href="/" th:text="#{home}"><span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a href="/tasks/new" th:text="#{newTask}"></a>
+        </li>
+    </ul>
+
+</nav>
 <body>
 
 <div th:if="${task !=null}">

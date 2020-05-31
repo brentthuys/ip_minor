@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <title th:text="#{title}"/>
 </head>
+<nav >
+
+    <ul >
+        <li >
+            <a href="/" th:text="#{home}"><span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+            <a href="/tasks/new" th:text="#{newTask}"></a>
+        </li>
+    </ul>
+
+</nav>
 <body>
 
 
-    <form method="post" th:action="@{/tasks/{id}/sub/createsubtask (id=${task.id})}">
+    <form method="post" th:action="@{/tasks/{id}/sub/createsubtask (id=${task.id})} " th:object="${subtaskDTO}">
         <h2 th:text="#{addSubtask}"/>
         <div>
             <label for="title" th:text="#{taskTitle}"/>
             <input type="text" name="title" id="title">
+
         </div>
         <div>
             <label for="description" th:text="#{taskDescription}"/>
             <input type="text" name="description" id="description">
+
         </div>
 
         <input type="hidden" name="mainTaskId" th:value="${task.getId()}"/>

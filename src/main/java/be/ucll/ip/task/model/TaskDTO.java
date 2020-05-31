@@ -15,13 +15,13 @@ import java.util.List;
 public class TaskDTO {
     private int id;
 
-    @NotBlank(message = "title cant be empty")
+    @NotBlank (message = "{titleNotBlank}")
     private String title;
-    @NotBlank(message = "descrption cant be empty")
+    @NotBlank (message = "{descriptionNotBlank}")
     private String description;
     private List<SubTaskDTO> subtasks =new ArrayList<>();
 
-    @NotNull
+    @NotNull (message = "timeNotNull")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime time;
 
